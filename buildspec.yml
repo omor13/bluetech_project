@@ -7,15 +7,15 @@ phases:
       - git clone https://github.com/omor13/bluetech_project.git
       - cd bluetech_project
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 590692511501.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo Ensuring repository exists...
-      - REPOSITORY_URI="590692511501.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/myapp"
+      - REPOSITORY_URI="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME"
   build:
     commands:
       - echo Building the Docker image...
-      - docker build -t myapp .
+      - docker build -t $REPOSITORY_NAME .
       - echo Tagging the Docker image...
-      - docker tag myapp:latest $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_NAME:latest $REPOSITORY_URI:latest
   post_build:
     commands:
       - echo Pushing the Docker image to ECR...
