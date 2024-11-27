@@ -8,7 +8,7 @@ content = ['learning path', 'lab', 'course', 'quiz']
 
 @app.route('/')
 def hello_world():
-    return 'v3 - How about trying a ' + content[randint(0, 3)] + ' next'
+    return 'v4 - How about trying a ' + content[randint(0, 3)] + ' next'
 
 
 if __name__ == '__main__':
